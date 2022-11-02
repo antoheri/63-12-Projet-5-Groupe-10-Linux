@@ -1,7 +1,7 @@
 # 63-12-Projet-5-Groupe-10-Linux
 
 Script python qui réalise un rapide audit de la situation actuelle des groupes et des utilisateurs sur un système linux.
-Le script crée un fichier de log avec tous les utilisateurs/groupes actuels du système et envoi le fichier sur un serveur FTP.
+Le script crée un fichier de log avec tous les utilisateurs/groupes actuels du système et envoie le fichier sur un serveur FTP.
 
 Une interface utilisateur permet également à l’utilisateur d’ajouter, supprimer ou modifier un groupe ou un utilisateur. 
 Lorsqu’un utilisateur est ajouté/modifié/supprimé, un mail d’information est envoyé à l'utilisateur du script.
