@@ -21,7 +21,7 @@ Tuto utilisation de GIT : [Tuto GIT](https://www.w3schools.com/git/git_remote_ge
 
 ## Utilisation du fichier login.env
 
-Les informations de connexion au serveur FTP doivent être utilisées via des variables d'environnement. Sur votre machine locale, renommez le fichier "login.env.example" en "login.env" puis modifiez le avec les bonnes valeurs.
+Les informations de connexion au serveur FTP doivent être utilisées via des variables d'environnement. Sur votre machine locale, renommez le fichier ".env.example" en ".env" puis modifiez le avec les bonnes valeurs.
 Celles-ci peuvent ensuite être récupérée et utilisée à l'aide de la bibliothèque "dotenv".
 
 Tuto d'utilisation de dotenv : [Tuto dotenv](https://www.delftstack.com/fr/howto/python/dotenv-python/)
