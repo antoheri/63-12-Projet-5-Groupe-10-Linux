@@ -1,0 +1,11 @@
+host = "votre_host.com" # adresse du serveur FTP
+user = "votre_pseudo" # votre identifiant
+password = "votre password" # votre mot de passe
+connect = ftp.ftplib(host,user,password) # on se connecte
+
+connect.quit() # où "connect" est le nom de la variable dans laquelle vous avez déclaré la connexion !
+
+fichier = "C:\Python_exercices\ftp.py"
+file = open(fichier, 'rb') # ici, j'ouvre le fichier ftp.py
+connect.storbinary('STOR '+fichier, file) # ici (où connect est encore la variable de la connexion), j'indique le fichier à envoyer
+file.close() # on ferme le fichier
