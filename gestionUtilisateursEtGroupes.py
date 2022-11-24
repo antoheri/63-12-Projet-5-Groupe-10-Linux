@@ -34,3 +34,4 @@ def del_group(groupname):
         subprocess.run(['sudo', 'groupdel', groupname])
     except:
         print(f"L'ajout du groupe {groupname} n'a pas fonctionné")
+
