@@ -1,11 +1,21 @@
-host = "votre_host.com" # adresse du serveur FTP
-user = "votre_pseudo" # votre identifiant
-password = "votre password" # votre mot de passe
-connect = ftp.ftplib(host,user,password) # on se connecte
+import ftplib 
+from ftplib import FTP
+from datetime import datetime
+import ssl
 
-connect.quit() # où "connect" est le nom de la variable dans laquelle vous avez déclaré la connexion !
+ftps = ftplib.FTP_TLS()
 
-fichier = "C:\Python_exercices\ftp.py"
-file = open(fichier, 'rb') # ici, j'ouvre le fichier ftp.py
-connect.storbinary('STOR '+fichier, file) # ici (où connect est encore la variable de la connexion), j'indique le fichier à envoyer
-file.close() # on ferme le fichier
+
+print (ftps.connect('d73kw.ftp.infomaniak.com'))
+print(ftps.login('d73kw_proj5_group10_lin','4CnKx6M9Muw9'))
+
+
+ftps.prot_p()
+cdir=ftps.pwd()
+print(cdir)
+x=ftps.cwd('/SAP/KERNEL/LINUX/')
+print(x)
+cdir=ftps.pwd()
+print(cdir)
+ftps.retrbinary("RETR " + "abc.sar" ,open("C:/Users/test/Documents/" + "abc.sar", 'wb').write)
+ftps.close()
