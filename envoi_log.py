@@ -1,14 +1,16 @@
 import smtplib
 
+
+#username = nom d'utilisateur et le mail est le mail de celui qui modifie les utilisateurs ou les groupes
 def new_user(username, mail):
 
-    # Configuration SMTP | Ici ajusté pour fonctionné avec Gmail
+    # Configuration SMTP
     host_smtp = "smtp.gmail.com"
     port_smtp = 587
-    email_smtp = "envoielogpyhton@gmail.com" # Mon email Gmail
-    mdp_smtp = "lsertysnmuzindln"  # Mon mot de passe
+    email_smtp = "envoielogpyhton@gmail.com" # email Gmail
+    mdp_smtp = "lsertysnmuzindln"  # mot de passe
 
-    # Configuration du mail
+    # Texte de l'email
     prenom = username
     formule_p = "Meilleures salutations"
     email_destinataire = mail
@@ -24,13 +26,13 @@ def new_user(username, mail):
 
 def delete_user(username, mail):
 
-    # Configuration SMTP | Ici ajusté pour fonctionné avec Gmail
+    # Configuration SMTP
     host_smtp = "smtp.gmail.com"
     port_smtp = 587
-    email_smtp = "envoielogpyhton@gmail.com" # Mon email Gmail
-    mdp_smtp = "lsertysnmuzindln"  # Mon mot de passe
+    email_smtp = "envoielogpyhton@gmail.com" # email Gmail
+    mdp_smtp = "lsertysnmuzindln"  # mot de passe
 
-    # Configuration du mail
+    # Texte de l'email
     prenom = username
     formule_p = "Meilleures salutations"
     email_destinataire = mail
@@ -52,7 +54,7 @@ def modify_user(username, mail):
     email_smtp = "envoielogpyhton@gmail.com" # Mon email Gmail
     mdp_smtp = "lsertysnmuzindln"  # Mon mot de passe
 
-    # Configuration du mail
+    # Texte de l'email
     prenom = username
     formule_p = "Meilleures salutations"
     email_destinataire = mail
@@ -74,8 +76,8 @@ def new_group(groupname, mail):
     email_smtp = "envoielogpyhton@gmail.com"  # Mon email Gmail
     mdp_smtp = "lsertysnmuzindln"  # Mon mot de passe
 
-    # Configuration du mail
-    #prenom = username
+    #Texte de l'email
+    
     group = groupname
     formule_p = "Meilleures salutations"
     email_destinataire = mail
@@ -97,8 +99,8 @@ def delete_group(groupname, mail):
     email_smtp = "envoielogpyhton@gmail.com"  # Mon email Gmail
     mdp_smtp = "lsertysnmuzindln"  # Mon mot de passe
 
-    # Configuration du mail
-    #prenom = username
+    # Texte de l'email
+    
     group = groupname
     formule_p = "Meilleures salutations"
     email_destinataire = mail
@@ -120,8 +122,8 @@ def modify_group(groupname, mail):
     email_smtp = "envoielogpyhton@gmail.com"  # Mon email Gmail
     mdp_smtp = "lsertysnmuzindln"  # Mon mot de passe
 
-    # Configuration du mail
-    #prenom = username
+    # Texte de l'email
+ 
     group = groupname
     formule_p = "Meilleures salutations"
     email_destinataire = mail
