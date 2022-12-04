@@ -1,11 +1,6 @@
 from tkinter import *
-import os
-import subprocess
-import sys
 from gestionUtilisateursEtGroupes import *
-from functools import partial
-import getpass
-
+from envoi_log import *
 # Fonction pour ajouter un utilisateur.
 # Elle prend en paramètre le nom d'utilisateur (string) et le mot de passe (string) qui peut aussi être récupéré avec getpass pour plus de sécurité.
 #Fonction création de la fenêtre basique
@@ -31,6 +26,7 @@ def basic_fen():
     butt_create_group.pack(pady=15)
     butt_del_group.pack(pady=15)
     butt_mod_group.pack(pady=15)
+
 #Fenêtre de création d'un utilisateur
 def fen_create_user():
     #Supprime l'ancien contenu pour afficher le nouveau à chaque appel
@@ -51,9 +47,13 @@ def fen_create_user():
 
     # Création des boutons pour appeler les futurs commandes de création
     # Obliger d'utiliser lambda pour passer des fonctions avec arguments
+    # Les boutons appellent les différentes fonctions pour l'action désirée / le mail / le FTP
     # le bouton retour appel la méthode basic_fen qui revient à la fenêtre principale
     butt_valid = Button(fen_user, text="Valider la création / modification", borderwidth=5, width=25,
-                        command=lambda: add_user(saisie_user.get(), saisie_pass.get()))
+                        command=lambda: [add_user(saisie_user.get(), saisie_pass.get()),
+                        new_user(saisie_user.get(),saisie_mail.get()),
+                        fen_create_user()])
+
     butt_retour = Button(fen_user, text="Retour", borderwidth=5, width=25, command=basic_fen)
 
     #Formatage sous format de grille pour plus de clarté et pour aligner le label et la donnée que va rentrer l'utilisateur
@@ -77,42 +77,41 @@ def fen_del_user():
     # Supprime l'ancien contenu pour afficher le nouveau à chaque appel
     for c in fen_user.winfo_children():
         c.destroy()
-    #Création du label de titre
+    # Création du label de titre
     text_user = Label(fen_user,text="Voici la liste de vos utilisateurs",font=("Courier",15,"bold"))
+    text_user.pack()
 
-    #Création de la liste où sera affichée les utilisateurs
+    # Création de la liste où sera affichée les utilisateurs
     liste_groups = Listbox(fen_user, width=60, height=20)
 
-    #Juste une boucle de test pour montrer comment utiliser la liste, il faut insérer les éléments avec un index
+    # Juste une boucle de test pour montrer comment utiliser la liste, il faut insérer les éléments avec un index
     for i in range(0,10):
-        user = "Utilisateur numéro : "+ str(i)
+        user = "user : "+ str(i)
         liste_groups.insert(i,user)
     liste_groups.pack()
 
-    #Création du label pour l'utilisateur et de l'entrée pour son mail
-    text_entry_mail = Label(fen_user, text='Entrez votre mail :', font=("bold", 15), justify='left')
+    # Création du label et de l'entrée pour le mail de l'utilisateur
+    text_user_mail = Label(fen_user, text='Entrez votre mail :', font=("bold", 15), justify='left')
     input_user_mail = StringVar()
     saisie_mail = Entry(textvariable=input_user_mail, width=30)
+    text_user_mail.pack(padx=25,pady=10)
+    saisie_mail.pack(padx=25)
 
-    #Création du label pour recevoir le nom de l'utilisateur à supprimer
-    text_entry_user = Label(fen_user, text="Entrez le nom de l'utilisateur", font=("bold", 15), justify='left')
-    input_user_name = StringVar()
-    saisie_user = Entry(textvariable=input_user_name, width=30)
-
-    #Création des deux boutons, pour le retour arrière et pour la suppression
-    #utilisation de lambda pour faire fonctionner une fonction avec argument
-    butt_valid = Button(fen_user,text="Valider la supression",borderwidth=5,width=25,command=lambda:del_user(saisie_user.get()))
-    butt_retour = Button(fen_user,text="Retour",borderwidth=5,width=25,command=basic_fen)
-
-    #Formatage des boutons
-    butt_valid.pack(side=LEFT,padx=25)
-    butt_retour.pack(side=RIGHT,padx=25)
-    #Formatage des entrée utilisateurs et des labels
-    text_user.pack()
+    # Création du label et de l'entrée pour le groupe
+    text_entry_user = Label(fen_user, text="Entrez l'utilisateur", font=("bold", 15), justify='left')
+    input_user = StringVar()
+    saisie_user = Entry(textvariable=input_user, width=30)
     text_entry_user.pack(padx=25, pady=10)
     saisie_user.pack(padx=25)
-    text_entry_mail.pack(padx=25,pady=10)
-    saisie_mail.pack(padx=25)
+
+    # Création des deux boutons
+    # Les boutons appellent les différentes fonctions pour l'action désirée / le mail / le FTP
+    butt_valid = Button(fen_user,text="Valider la supression",borderwidth=5,width=25,command=lambda:[del_user(saisie_user.get()),
+                        delete_user(saisie_user.get(),saisie_mail.get()),
+                        fen_del_user()])
+    butt_retour = Button(fen_user,text="Retour",borderwidth=5,width=25,command=basic_fen)
+    butt_valid.pack(side=LEFT,padx=25)
+    butt_retour.pack(side=RIGHT,padx=25)
 
 #Fenêtre de modification user
 def fen_modify_user():
@@ -153,8 +152,13 @@ def fen_create_group():
     saisie_mail = Entry(textvariable=input_user_mail, width=30)
 
     # Création des boutons pour appeler les futurs commandes de création
+    # Les boutons appellent les différentes fonctions pour l'action désirée / le mail / le FTP
     # le bouton retour appel la méthode basic_fen qui revient à la fenêtre principale
-    butt_valid = Button(fen_user, text="Valider la création / modification", borderwidth=5, width=25,command=lambda:add_group(saisie_group.get()))
+    butt_valid = Button(fen_user, text="Valider la création / modification", borderwidth=5, width=25,
+                        command=lambda:
+                        [add_group(saisie_group.get()),
+                        new_group(saisie_group.get(),saisie_mail.get()),
+                         fen_create_group()])
     butt_retour = Button(fen_user, text="Retour", borderwidth=5, width=25, command=basic_fen)
 
     # Formatage sous format de grille pour plus de clarté et pour aligner le label et la donnée que va rentrer l'utilisateur
@@ -203,7 +207,12 @@ def fen_del_group():
     saisie_group.pack(padx=25)
 
     # Création des deux boutons, pour le retour arrière et pour la suppression
-    butt_valid = Button(fen_user,text="Valider la supression",borderwidth=5,width=25,command=lambda:del_group(saisie_group.get()))
+    #Les boutons appellent les différentes fonctions pour l'action désirée / le mail / le FTP
+    butt_valid = Button(fen_user,text="Valider la supression",borderwidth=5,width=25,
+                        command=lambda:
+                        [del_group(saisie_group.get()),
+                         delete_group(saisie_group.get(),saisie_mail.get()),
+                         fen_del_group()])
     butt_retour = Button(fen_user,text="Retour",borderwidth=5,width=25,command=basic_fen)
     butt_valid.pack(side=LEFT,padx=25)
     butt_retour.pack(side=RIGHT,padx=25)
