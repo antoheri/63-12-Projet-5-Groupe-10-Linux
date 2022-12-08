@@ -36,20 +36,24 @@ def del_group(groupname):
     except:
         print(f"L'ajout du groupe {groupname} n'a pas fonctionné")
 
-# Fonction pour modifier le groupe principal d'un utilisateur, elle prend en argument le nom d'utilisateur et le nom du nouveau groupe qui remplacera celui d'avant. Attention, ce groupe doit déjà être existant.
+# Fonction pour modifier le groupe principal d'un utilisateur, elle prend en argument le nom d'utilisateur (string) et 
+# le nom du nouveau groupe (string) qui remplacera celui d'avant. Attention, ce groupe doit déjà être existant.
 def modify_users_group(user, new_group):
     try:
         subprocess.run(['sudo', 'usermod', '-g', new_group, user])
     except:
         print(f"La modifiaction du groupe n'a pas fonctionné")
-
+        
+# Fonction pour amodifier le nom d'un utilisateur, elle prend en argument l'ancient et le nouveau nom d'utilisateur (string).
 def modify_username(user, new_username):
     try:
         subprocess.run(['sudo', 'usermod', '-l', new_username, user])
     except:
         print(f"La modifiaction du nom d'utilisateur n'a pas fonctionné")
-
-def modify_password(user, new_password):
+        
+# Fonction pour ajouter un groupe, elle prend en argument le nom d'utilisateur (string).
+# Le mot de passe est entré de manière interactive avec le shell.
+def modify_password(user):
     try:
         subprocess.run(['sudo', 'passwd', user])
     except:
