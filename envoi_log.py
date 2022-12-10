@@ -14,7 +14,7 @@ def new_user(username, mail):
     prenom = username
     formule_p = "Meilleures salutations"
     email_destinataire = mail
-    mail_content = f'Bonjour {prenom}, le nouveau utilisateur {prenom} a été créé. {formule_p}'
+    mail_content = f'Bonjour, le nouveau utilisateur {prenom} a été créé. {formule_p}'
 
     # Création de l'objet mail
     mail = smtplib.SMTP(host_smtp, port_smtp) # cette configuration fonctionne pour gmail
@@ -36,7 +36,7 @@ def delete_user(username, mail):
     prenom = username
     formule_p = "Meilleures salutations"
     email_destinataire = mail
-    mail_content = f"Bonjour {prenom}, l'utilisateur {prenom} a été supprimé. {formule_p}"
+    mail_content = f"Bonjour, l'utilisateur {prenom} a été supprimé. {formule_p}"
 
     # Création de l'objet mail
     mail = smtplib.SMTP(host_smtp, port_smtp) # cette configuration fonctionne pour gmail
@@ -58,7 +58,7 @@ def modify_user(username, mail):
     prenom = username
     formule_p = "Meilleures salutations"
     email_destinataire = mail
-    mail_content = f"Bonjour {prenom}, l'utilisateur {prenom} a été modifié. {formule_p}"
+    mail_content = f"Bonjour, l'utilisateur {prenom} a été modifié. {formule_p}"
 
     # Création de l'objet mail
     mail = smtplib.SMTP(host_smtp, port_smtp) # cette configuration fonctionne pour gmail
