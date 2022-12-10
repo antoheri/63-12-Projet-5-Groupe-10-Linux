@@ -15,6 +15,7 @@ def add_user(username, password):
         print(f"L'ajout de l'utilisaeur {username} n'a pas fonctionné")
         sys.exit(1)
 
+
 # Fonction pour supprimer un utilisateur, elle prend en argument le nom de l'tuilisateur (string).
 def del_user(username):
     try:
@@ -44,7 +45,7 @@ def modify_users_group(user, new_group):
     except:
         print(f"La modifiaction du groupe n'a pas fonctionné")
         
-# Fonction pour amodifier le nom d'un utilisateur, elle prend en argument l'ancient et le nouveau nom d'utilisateur (string).
+# Fonction pour modifier le nom d'un utilisateur, elle prend en argument l'ancien et le nouveau nom d'utilisateur (string).
 def modify_username(user, new_username):
     try:
         subprocess.run(['sudo', 'usermod', '-l', new_username, user])
@@ -57,7 +58,7 @@ def modify_password(user):
     try:
         subprocess.run(['sudo', 'passwd', user])
     except:
-        print(f"La modifiaction du nom d'utilisateur n'a pas fonctionné")
+        print(f"La modification du nom d'utilisateur n'a pas fonctionné.")
 # Fonction pour la gestion d'un fichier de logs, celui-ci est créé dans le dossier courant.
 def modify_log_file(text_to_append):
     current_datetime = datetime.now()
