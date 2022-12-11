@@ -1,5 +1,5 @@
 
-#Lister groupes et leurs utilisateurs
+#Lister les groupes et leurs utilisateurs
 fileGroup = open("/etc/group")
 print("Groupes".ljust(20)+"Utilisateurs du groupe")
 print("")
