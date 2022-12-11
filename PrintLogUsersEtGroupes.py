@@ -2,6 +2,7 @@
 #Lister groupes et leurs utilisateurs
 fileGroup = open("/etc/group")
 print("Groupes".ljust(20)+"Utilisateurs du groupe")
+print("")
 lignes = fileGroup.readlines()
 for ligne in lignes:
 
