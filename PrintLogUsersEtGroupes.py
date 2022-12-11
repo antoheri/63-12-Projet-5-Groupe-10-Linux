@@ -11,9 +11,10 @@ for ligne in lignes:
 fileGroup.close
 
 
-#Lister utilisateurs
+#Lister tous les utilisateurs 
 fileUsers = open("/etc/passwd")
-print("Listes des utilisateurs :")
+print("Liste de tous les utilisateurs :")
+print("")
 lignes = fileUsers.readlines()
 for ligne in lignes:
 
