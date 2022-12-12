@@ -7,21 +7,21 @@ ftps = ftplib.FTP_TLS()
 
 host = "d73kw.ftp.infomaniak.com" # adresse du serveur FTP
 user = "d73kw_proj5_group10_lin" # identifiant
-password = "4CnKx6M9Muw9" # mot de passe
+password = "4CnKx6M9Muw9" # mot de   passe
 connect = FTP.ftplib(host,user,password) # on se connecte
 
-connect.quit() # où "connect" est le nom de la variable dans laquelle on a déclaré la connexion 
+connect.quit() # oï¿½ "connect" est le nom de la variable dans laquelle on a dï¿½clarï¿½ la connexion 
 
 fichier = "/6312_Python_2022/Proj5_Group10_Lin"
 file = open(fichier, 'rb') # ici, j'ouvre le fichier ftp.py
-connect.storbinary('STOR '+fichier, file) # ici (où connect est encore la variable de la connexion), j'indique le fichier à envoyer
+connect.storbinary('STOR '+fichier, file) # ici (oï¿½ connect est encore la variable de la connexion), j'indique le fichier ï¿½ envoyer
 file.close() # on ferme le fichier
 
-etat = connect.getwelcome() # grâce à la fonction getwelcome(), on récupère le "message de bienvenue"
+etat = connect.getwelcome() # grï¿½ce ï¿½ la fonction getwelcome(), on rï¿½cupï¿½re le "message de bienvenue"
 print ("Etat : ", etat) # ici, on l'affiche, cette ligne est facultative
 
-rep = connect.dir() # on récupère le listing
+rep = connect.dir() # on rï¿½cupï¿½re le listing
 print (rep) # on l'affiche dans la console
 
-commande = ('Tapez la commande à effectuer : ') # entrez la commande à effectuer
+commande = ('Tapez la commande ï¿½ effectuer : ') # entrez la commande ï¿½ effectuer
 resultat = connect.sendcmd(commande) # on envoie la commande au serveur : si elle n'est pas bonne, Python plantera

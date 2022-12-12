@@ -1,7 +1,7 @@
 from tkinter import *
 from gestionUtilisateursEtGroupes import *
 from envoi_log import *
-
+from PrintLogUsersEtGroupes import *
 #Fonction création de la fenêtre basique
 #va être appelée lors de chaque retour à l'interface principale
 def basic_fen():
@@ -82,6 +82,7 @@ def fen_create_user():
     butt_valid = Button(fen_user, text="Valider la création / modification", borderwidth=5, width=25,
                         command=lambda: [add_user(entry_user_name.get(),entry_user_passwd.get()),
                         new_user(entry_user_name.get(),entry_mail.get()),
+                        modify_log_file(list_modify_user(entry_user_name.get())),
                         fen_create_user()])
 
     butt_retour = Button(fen_user, text="Retour", borderwidth=5, width=25, command=basic_fen)
@@ -105,21 +106,26 @@ def fen_del_user():
     text_user.grid(row=2,columnspan=2)
 
     # Création de la liste où sera affichée les utilisateurs
-    liste_groups = Listbox(fen_user, width=30, height=15)
-    # Juste une boucle de test pour montrer comment utiliser la liste, il faut insérer les éléments avec un index
-    for i in range(3,13):
-        user = "user : "+ str(i)
-        liste_groups.insert(i,user)
-        liste_groups.grid(row=i,columnspan=2,padx=10)
+    liste_users = Listbox(fen_user, width=30, height=15)
+    fileUsers = open("/etc/passwd")
+    idx=1
+    lignes = fileUsers.readlines()
+    for ligne in lignes:
+        liste_users.insert(idx,(ligne.split(':')[0]))
+        idx+=1
+    fileUsers.close
+    liste_users.grid(row=3,columnspan=2,pady=10)
+
     # Création des deux boutons
     # Les boutons appellent les différentes fonctions pour l'action désirée / le mail / le FTP
     butt_valid = Button(fen_user,text="Valider la supression",borderwidth=5,width=25,
                         command=lambda:[del_user(entry_delete.get()),
                         delete_user(entry_delete.get(),entry_mail.get()),
+                        modify_log_file(list_modify_user(entry_delete.get())),
                         fen_del_user()])
     butt_retour = Button(fen_user,text="Retour",borderwidth=5,width=25,command=basic_fen)
-    butt_valid.grid(row=14,column=0,pady=15,padx=10)
-    butt_retour.grid(row=14,column=1,pady=15,padx=10)
+    butt_valid.grid(row=4,column=0,pady=15,padx=10)
+    butt_retour.grid(row=4,column=1,pady=15,padx=10)
 
 #Fonction pour la fenêtre de modification d'utilisateur
 def fen_modify_user():
@@ -161,6 +167,7 @@ def fen_modify_username():
     butt_valid = Button(fen_user, text="Valider la création / modification", borderwidth=5, width=25,
                         command=lambda: [modify_username(entry_old_name.get(),entry_new_name.get()),
                                          modify_user(entry_old_name.get(),entry_mail.get()),
+                                         modify_log_file(list_modify_user(entry_old_name.get())),
                                          fen_modify_username()])
 
     butt_retour = Button(fen_user, text="Retour", borderwidth=5, width=25, command=basic_fen)
@@ -187,6 +194,7 @@ def fen_modify_password():
     butt_valid = Button(fen_user, text="Valider la création / modification", borderwidth=5, width=25,
                         command=lambda: [modify_password(entry_user_name.get()),
                                          modify_user(entry_user_name.get(), entry_mail.get()),
+                                         modify_log_file(list_modify_user(entry_user_name.get())),
                                          fen_modify_username()])
 
 
@@ -257,6 +265,7 @@ def fen_create_group():
                         command=lambda:
                         [add_group(entry_group_name.get()),
                         new_group(entry_group_name.get(),entry_mail.get()),
+                        modify_log_file(list_modify_group(entry_group_name.get())),
                         fen_create_group()])
     butt_retour = Button(fen_user, text="Retour", borderwidth=5, width=25, command=basic_fen)
 
@@ -274,16 +283,33 @@ def fen_del_group():
     entry_group_name = create_entry(0, 1,False)
     create_label("Entrez un mail", 1, 0)
     entry_mail = create_entry(1, 1,False)
+
+    # Création du label de titre
+    text_group = Label(fen_user, text="Liste des groupes", font=("Courier", 15, "bold"))
+    text_group.grid(row=2, columnspan=2)
+
+    # Création de la liste où sera affichée les groupes
+    liste_group = Listbox(fen_user, width=30, height=15)
+    fileUsers = open("/etc/group")
+    idx = 1
+    lignes = fileUsers.readlines()
+    for ligne in lignes:
+        liste_group.insert(idx, ligne.split(':')[0])
+        idx += 1
+    fileUsers.close
+    liste_group.grid(row=3, columnspan=2, pady=10)
+
     # Création des deux boutons, pour le retour arrière et pour la suppression
     #Les boutons appellent les différentes fonctions pour l'action désirée / le mail / le FTP
     butt_valid = Button(fen_user,text="Valider la supression",borderwidth=5,width=25,
                         command=lambda:
                         [del_group(entry_group_name.get()),
                          delete_group(entry_group_name.get(),entry_mail.get()),
+                         modify_log_file(list_modify_group(entry_group_name.get())),
                          fen_del_group()])
     butt_retour = Button(fen_user,text="Retour",borderwidth=5,width=25,command=basic_fen)
-    butt_valid.grid(row=3, column=0, padx=20)
-    butt_retour.grid(row=3, column=1, padx=20)
+    butt_valid.grid(row=4, column=0, padx=20)
+    butt_retour.grid(row=4, column=1, padx=20)
 #Fenêtre de modification de groupe
 
 #Création de la fenêtre principale qui va nous servire pour l'entier de l'affichage
@@ -292,7 +318,9 @@ fen_user = Tk()
 fen_user.geometry("600x600")
 #Appel de la fonction basic_fen pour afficher la fenêtre d'accueil
 basic_fen()
-
+#Envoi de l'état du système
+modify_log_file(list_users())
+modify_log_file(list_group())
 
 #Méthode pour dire à la fenêtre de rester affichée, sans cette appel elle n'apparaît pas
 fen_user.mainloop()

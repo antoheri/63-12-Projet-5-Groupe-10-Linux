@@ -66,3 +66,4 @@ def modify_log_file(text_to_append):
     with open("modifications.log", "a") as file:
         file.write("[" + formated_datetime + "] " + text_to_append)
         file.write("\n")
+
