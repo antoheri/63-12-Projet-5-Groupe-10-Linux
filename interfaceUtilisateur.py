@@ -82,7 +82,7 @@ def fen_create_user():
     butt_valid = Button(fen_user, text="Valider la création / modification", borderwidth=5, width=25,
                         command=lambda: [add_user(entry_user_name.get(),entry_user_passwd.get()),
                         new_user(entry_user_name.get(),entry_mail.get()),
-                        modify_log_file(list_modify_user(entry_user_name.get())),
+                        modify_log_file(list_modify_user(entry_user_name.get()), "modifications.log", "a"),
                         fen_create_user()])
 
     butt_retour = Button(fen_user, text="Retour", borderwidth=5, width=25, command=basic_fen)
@@ -121,7 +121,7 @@ def fen_del_user():
     butt_valid = Button(fen_user,text="Valider la supression",borderwidth=5,width=25,
                         command=lambda:[del_user(entry_delete.get()),
                         delete_user(entry_delete.get(),entry_mail.get()),
-                        modify_log_file(list_modify_user(entry_delete.get())),
+                        modify_log_file(list_modify_user(entry_delete.get()), "modifications.log", "a"),
                         fen_del_user()])
     butt_retour = Button(fen_user,text="Retour",borderwidth=5,width=25,command=basic_fen)
     butt_valid.grid(row=4,column=0,pady=15,padx=10)
@@ -167,7 +167,7 @@ def fen_modify_username():
     butt_valid = Button(fen_user, text="Valider la création / modification", borderwidth=5, width=25,
                         command=lambda: [modify_username(entry_old_name.get(),entry_new_name.get()),
                                          modify_user(entry_old_name.get(),entry_mail.get()),
-                                         modify_log_file(list_modify_user(entry_old_name.get())),
+                                         modify_log_file(list_modify_user(entry_old_name.get()), "modifications.log", "a"),
                                          fen_modify_username()])
 
     butt_retour = Button(fen_user, text="Retour", borderwidth=5, width=25, command=basic_fen)
@@ -194,7 +194,7 @@ def fen_modify_password():
     butt_valid = Button(fen_user, text="Valider la création / modification", borderwidth=5, width=25,
                         command=lambda: [modify_password(entry_user_name.get()),
                                          modify_user(entry_user_name.get(), entry_mail.get()),
-                                         modify_log_file(list_modify_user(entry_user_name.get())),
+                                         modify_log_file(list_modify_user(entry_user_name.get()), "modifications.log", "a"),
                                          fen_modify_username()])
 
 
@@ -265,7 +265,7 @@ def fen_create_group():
                         command=lambda:
                         [add_group(entry_group_name.get()),
                         new_group(entry_group_name.get(),entry_mail.get()),
-                        modify_log_file(list_modify_group(entry_group_name.get())),
+                        modify_log_file(list_modify_group(entry_group_name.get()), "modifications.log", "a"),
                         fen_create_group()])
     butt_retour = Button(fen_user, text="Retour", borderwidth=5, width=25, command=basic_fen)
 
@@ -305,7 +305,7 @@ def fen_del_group():
                         command=lambda:
                         [del_group(entry_group_name.get()),
                          delete_group(entry_group_name.get(),entry_mail.get()),
-                         modify_log_file(list_modify_group(entry_group_name.get())),
+                         modify_log_file(list_modify_group(entry_group_name.get()), "modifications.log", "a"),
                          fen_del_group()])
     butt_retour = Button(fen_user,text="Retour",borderwidth=5,width=25,command=basic_fen)
     butt_valid.grid(row=4, column=0, padx=20)
@@ -318,9 +318,8 @@ fen_user = Tk()
 fen_user.geometry("600x600")
 #Appel de la fonction basic_fen pour afficher la fenêtre d'accueil
 basic_fen()
-#Envoi de l'état du système
-modify_log_file(list_users())
-modify_log_file(list_group())
+#Envoi de l'état du système sur
+modify_log_file(list_users() + "\n\n" + list_group(), "liste_utilisateurs_et_groupes.log", "w")
 
 #Méthode pour dire à la fenêtre de rester affichée, sans cette appel elle n'apparaît pas
 fen_user.mainloop()
