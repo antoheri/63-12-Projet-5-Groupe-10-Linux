@@ -60,10 +60,10 @@ def modify_password(user):
     except:
         print(f"La modification du nom d'utilisateur n'a pas fonctionné.")
 # Fonction pour la gestion d'un fichier de logs, celui-ci est créé dans le dossier courant.
-def modify_log_file(text_to_append):
+def modify_log_file(text_to_append, filename):
     current_datetime = datetime.now()
     formated_datetime = current_datetime.strftime("%d/%m/%Y, %H:%M:%S")
-    with open("modifications.log", "a") as file:
+    with open("filename", "a") as file:
         file.write("[" + formated_datetime + "] " + text_to_append)
         file.write("\n")
 
