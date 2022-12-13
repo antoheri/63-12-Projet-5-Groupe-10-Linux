@@ -1,7 +1,21 @@
+import os
 from tkinter import *
 from gestionUtilisateursEtGroupes import *
 from envoi_log import *
 from PrintLogUsersEtGroupes import *
+from upload_file import *
+from dotenv import load_dotenv
+
+#Importation des variables d'environnements
+load_dotenv()
+FTP_SERVER = os.environ.get('FTP_SERVER')
+FTP_USERNAME = os.environ.get('FTP_USERNAME')
+FTP_PASSWORD = os.environ.get('FTP_PASSWORD')
+SMTP_SERVER = os.environ.get('SMTP_SERVER')
+SMTP_PORT = os.environ.get('SMTP_PORT')
+MAIL = os.environ.get('MAIL')
+MAIL_PWD = os.environ.get('MAIL_PWD')
+
 #Fonction création de la fenêtre basique
 #va être appelée lors de chaque retour à l'interface principale
 def basic_fen():
@@ -318,9 +332,11 @@ fen_user = Tk()
 fen_user.geometry("600x600")
 #Appel de la fonction basic_fen pour afficher la fenêtre d'accueil
 basic_fen()
-#Envoi de l'état du système sur
+#Envoi de l'état du système dans le fichier, puis le fichier sur le serveur FTP.
 modify_log_file(list_users() + "\n\n" + list_group(), "liste_utilisateurs_et_groupes.log", "w")
-
+upload_file("liste_utilisateurs_et_groupes.log", FTP_SERVER, FTP_USERNAME, FTP_PASSWORD)
 #Méthode pour dire à la fenêtre de rester affichée, sans cette appel elle n'apparaît pas
 fen_user.mainloop()
+
+upload_file("modifications.log", FTP_SERVER, FTP_USERNAME, FTP_PASSWORD)
 
