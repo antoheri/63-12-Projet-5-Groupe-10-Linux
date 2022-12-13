@@ -3,7 +3,7 @@ from tkinter import *
 from gestionUtilisateursEtGroupes import *
 from envoi_log import *
 from PrintLogUsersEtGroupes import *
-from upload_file import *
+from Connexion_FTP_Gestion_fichiers import *
 from dotenv import load_dotenv
 
 #Importation des variables d'environnements
