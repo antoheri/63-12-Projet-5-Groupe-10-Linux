@@ -338,5 +338,7 @@ upload_file("liste_utilisateurs_et_groupes.log", FTP_SERVER, FTP_USERNAME, FTP_P
 #Méthode pour dire à la fenêtre de rester affichée, sans cette appel elle n'apparaît pas
 fen_user.mainloop()
 
-upload_file("modifications.log", FTP_SERVER, FTP_USERNAME, FTP_PASSWORD)
+# A la fermeture de Tkinter, on envoie les modifications
+fen_user.protocol("WM_DELETE_WINDOW",upload_file("modifications.log", FTP_SERVER, FTP_USERNAME, FTP_PASSWORD))
+
 
