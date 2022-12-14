@@ -11,10 +11,6 @@ load_dotenv()
 FTP_SERVER = os.environ.get('FTP_SERVER')
 FTP_USERNAME = os.environ.get('FTP_USERNAME')
 FTP_PASSWORD = os.environ.get('FTP_PASSWORD')
-SMTP_SERVER = os.environ.get('SMTP_SERVER')
-SMTP_PORT = os.environ.get('SMTP_PORT')
-MAIL = os.environ.get('MAIL')
-MAIL_PWD = os.environ.get('MAIL_PWD')
 
 #Fonction création de la fenêtre basique
 #va être appelée lors de chaque retour à l'interface principale
