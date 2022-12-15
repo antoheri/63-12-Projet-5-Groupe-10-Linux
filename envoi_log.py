@@ -1,13 +1,7 @@
 import smtplib
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-sendmail = os.environ.get('MAIL')
-password = os.environ.get('MAIL_PASSWORD')
 
 #username = nom d'utilisateur et le mail est le mail de celui qui modifie les utilisateurs ou les groupes
-def new_user(username, mail):
+def new_user(username, mail, sendmail, password):
 
     # Configuration SMTP
     host_smtp = "smtp.gmail.com"
@@ -29,7 +23,7 @@ def new_user(username, mail):
     mail.sendmail(email_smtp, email_destinataire, mail_content.encode('utf8'))
     mail.close()
 
-def delete_user(username, mail):
+def delete_user(username, mail, sendmail, password):
 
     # Configuration SMTP
     host_smtp = "smtp.gmail.com"
@@ -51,7 +45,7 @@ def delete_user(username, mail):
     mail.sendmail(email_smtp, email_destinataire, mail_content.encode('utf8'))
     mail.close()
 
-def modify_user(username, mail):
+def modify_user(username, mail, sendmail, password):
 
     # Configuration SMTP | Ici ajusté pour fonctionné avec Gmail
     host_smtp = "smtp.gmail.com"
@@ -73,7 +67,7 @@ def modify_user(username, mail):
     mail.sendmail(email_smtp, email_destinataire, mail_content.encode('utf8'))
     mail.close()
 
-def new_group(groupname, mail):
+def new_group(groupname, mail, sendmail, password):
 
     # Configuration SMTP | Ici ajusté pour fonctionné avec Gmail
     host_smtp = "smtp.gmail.com"
@@ -82,7 +76,7 @@ def new_group(groupname, mail):
     mdp_smtp = password  # mot de passe
 
     #Texte de l'email
-    
+
     group = groupname
     formule_p = "Meilleures salutations"
     email_destinataire = mail
@@ -96,7 +90,7 @@ def new_group(groupname, mail):
     mail.sendmail(email_smtp, email_destinataire, mail_content.encode('utf8'))
     mail.close()
 
-def delete_group(groupname, mail):
+def delete_group(groupname, mail, sendmail, password):
 
     # Configuration SMTP | Ici ajusté pour fonctionné avec Gmail
     host_smtp = "smtp.gmail.com"
@@ -105,7 +99,7 @@ def delete_group(groupname, mail):
     mdp_smtp = password  # mot de passe
 
     # Texte de l'email
-    
+
     group = groupname
     formule_p = "Meilleures salutations"
     email_destinataire = mail
@@ -119,7 +113,7 @@ def delete_group(groupname, mail):
     mail.sendmail(email_smtp, email_destinataire, mail_content.encode('utf8'))
     mail.close()
 
-def modify_group(groupname, mail):
+def modify_group(groupname, mail, sendmail, password):
 
     # Configuration SMTP | Ici ajusté pour fonctionné avec Gmail
     host_smtp = "smtp.gmail.com"
@@ -127,7 +121,7 @@ def modify_group(groupname, mail):
     email_smtp = sendmail # email Gmail
     mdp_smtp = password  # mot de passe
     # Texte de l'email
- 
+
     group = groupname
     formule_p = "Meilleures salutations"
     email_destinataire = mail
@@ -140,3 +134,4 @@ def modify_group(groupname, mail):
     mail.login(email_smtp, mdp_smtp)
     mail.sendmail(email_smtp, email_destinataire, mail_content.encode('utf8'))
     mail.close()
+
